@@ -20,10 +20,12 @@
   .muted { color: var(--muted); font-size: .9rem; }
   a { color: var(--accent); }
   nav { text-align: center; margin-bottom: 16px; }
+  .back { display: block; width: 100%; margin: 0 0 20px; padding: 14px 16px; border: 0; border-radius: 14px; background: var(--accent); color: #fff; font: 600 1.05rem/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer; }
 </style>
 </head>
 <body>
 <main>
+<button class="back" type="button" id="back"><span lang="cs">← Zpět do hry</span> · <span lang="en">Back to the game</span></button>
 <nav><a href="#cs">Česky</a> · <a href="#en">English</a></nav>
 
 <section id="cs" lang="cs">
@@ -85,6 +87,20 @@
   <h2>Contact</h2>
   <p>Purrl is run by its author. For privacy questions or requests for access or deletion, write to <a href="mailto:purrl.game@gmail.com">purrl.game@gmail.com</a>.</p>
 </section>
+<button class="back" type="button" id="back2"><span lang="cs">← Zpět do hry</span> · <span lang="en">Back to the game</span></button>
 </main>
+<script>
+  // Opened as a new tab/popup: close it. Opened inside an installed app (iOS Home Screen) there is no back button:
+  // go back in history, or load the game.
+  function backToGame() {
+    try { window.close(); } catch (e) {}
+    setTimeout(function () {
+      if (history.length > 1) { history.back(); setTimeout(function () { location.href = './'; }, 400); }
+      else location.href = './';
+    }, 150);
+  }
+  document.getElementById('back').addEventListener('click', backToGame);
+  document.getElementById('back2').addEventListener('click', backToGame);
+</script>
 </body>
 </html>
